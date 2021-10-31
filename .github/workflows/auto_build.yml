@@ -10,12 +10,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Download Code
-        run: |
-          git clone $path
-        env:
-          path:https://github.com/$GITHUB_ACTION_PATH
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
       - name: Dependces
         run: |
+          ls
           cd VSTCDM
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
