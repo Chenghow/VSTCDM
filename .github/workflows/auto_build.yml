@@ -11,7 +11,9 @@ jobs:
     steps:
       - name: Download Code
         run: |
-          git clone https://github.com/$GITHUB_ACTION_PATH
+          git clone $path
+        env:
+          path:https://github.com/$GITHUB_ACTION_PATH
       - name: Dependces
         run: |
           cd VSTCDM
