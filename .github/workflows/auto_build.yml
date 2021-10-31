@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Download Code
         run: |
-          git clone https://github.com/chenghow/VSTCDM
+          git clone https://github.com/huoyiming/VSTCDM
       - name: Dependces
         run: |
           cd VSTCDM
