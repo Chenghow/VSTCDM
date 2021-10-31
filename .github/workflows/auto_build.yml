@@ -1,0 +1,34 @@
+name: Auto-Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download Code
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Dependces
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements.txt
+      - name: Build
+        run: |
+          mkdir output
+          pyinstaller -F main.py
+          mv dist/main.exe output/
+          mv README.md output/
+          mv error_list.txt output/
+          mv LICENSE output/
+          mv list.txt output/
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: output

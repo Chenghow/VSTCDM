@@ -37,3 +37,4 @@ for count, line in enumerate(open("error_list.txt", "r",encoding="utf-8")):
 count += 1
 
 print("输出完成,共%d个错误,请查收生成的文件"%count)
+input("按回车退出")
