@@ -3,7 +3,7 @@
 
 VSTCDM即Voluntary Service Time Certificate Download Manager，志愿服务时间证书下载器，*仅支持广东省注册志愿者*
 
-**需要python3环境与requests库**
+**需要python3环境与requests、pikepdf库**
 
 使用前，请编辑**list.txt**批量下载名单文件，格式如下
 
