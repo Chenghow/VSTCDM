@@ -11,24 +11,24 @@ jobs:
     steps:
       - name: Download Code
         run: |
-          git clone https://github.com/chenghow/net-forbidden
+          git clone https://github.com/chenghow/VSTCDM
       - name: Dependces
         run: |
-          cd net-forbidden
+          cd VSTCDM
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
       - name: Build
         run: |
-          cd net-forbidden
+          cd VSTCDM
           mkdir output
-          pyinstaller -F netlock.py
-          pyinstaller -F unlock.py
-          mv dist/netlock.exe output/
-          mv dist/unlock.exe output/
-          mv etc output/
+          pyinstaller -F main.py
+          mv dist/main.exe output/
           mv README.md output/
+          mv error_list.txt output/
+          mv LICENSE output/
+          mv list.txt output/
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: Build
-          path: net-forbidden/output
+          path: VSTCDM/output
