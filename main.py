@@ -1,5 +1,6 @@
 #需要的库
 import requests
+from pikepdf import Pdf
 #说明
 print("请在脚本同一目录下编辑list.txt文件\n格式：班别(文件名)+姓名+身份证号，一行一组")
 print("信息不匹配将无法输出，并在同一目录下生成error.txt名单\n仅对广东省注册志愿者有效\n\n")
@@ -29,7 +30,11 @@ for i in list:                                          #循环更新url
     else:
         with open(i[0]+"-"+i[1]+".pdf", "wb") as pdf:    #储存
             pdf.write(r.content)
-
+        origin = Pdf.open(i[0]+"-"+i[1]+".pdf")
+        dst = Pdf.new()
+        dst.pages.append(origin.pages[0])
+        save_name=i[0]+"-"+i[1]+".pdf"
+        dst.save(save_name)
 #数error.txt的行数，统计错误
 count = -1
 for count, line in enumerate(open("error_list.txt", "r",encoding="utf-8")):
