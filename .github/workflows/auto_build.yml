@@ -16,13 +16,10 @@ jobs:
 
       - name: Dependces
         run: |
-          ls
-          cd VSTCDM
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
       - name: Build
         run: |
-          cd VSTCDM
           mkdir output
           pyinstaller -F main.py
           mv dist/main.exe output/
@@ -34,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Build
-          path: VSTCDM/output
+          path: output
