@@ -33,8 +33,10 @@ jobs:
           path: output
      
       - name: Create a Release
-        uses: elgohr/Github-Release-Action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          args: MyReleaseMessage
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: output/*
