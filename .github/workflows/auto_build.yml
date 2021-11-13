@@ -16,12 +16,13 @@ jobs:
       - name: Dependces
         run: |
           python3 -m pip install --upgrade pip
+          pip3 install pyinstaller
           pip3 install -r requirements.txt
       - name: Build
         run: |
           mkdir output
           pyinstaller -F main.py
-          mv dist/main.exe output/
+          mv dist/*.exe output/
           mv README.md output/
           mv error_list.txt output/
           mv LICENSE output/
