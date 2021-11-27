@@ -3,6 +3,11 @@ name: Auto-Build
 on:
   push:
   workflow_dispatch:
+    inputs:
+      Release_Version:
+        description: '自动发布版本，none即为不发布'
+        required: true
+        default: 'none'
 
 jobs:
   build:
@@ -16,18 +21,32 @@ jobs:
       - name: Dependces
         run: |
           python3 -m pip install --upgrade pip
+          pip3 install pyinstaller
           pip3 install -r requirements.txt
       - name: Build
         run: |
           mkdir output
           pyinstaller -F main.py
-          mv dist/main.exe output/
+          mv dist/*.exe output/
           mv README.md output/
           mv error_list.txt output/
           mv LICENSE output/
           mv list.txt output/
+          Compress-Archive -Path output -DestinationPath output.zip
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: Build
           path: output
+      - name: create release and upload asset
+        if: ${{ github.event.inputs.Release_Version != 'none' && github.event.inputs.Release_Version != '' }}
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: output.zip
+          file_glob: true
+          tag: {{ github.event.inputs.Release_Version }}
+          overwrite: true
+          release_name: "${{ github.event.inputs.Release_Version }}"
+          body: "这是自动打包版本，可能存在不稳定性"
+    
