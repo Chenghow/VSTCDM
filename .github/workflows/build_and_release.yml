@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       Release_Version:
-        description: '自动发布版本'
+        description: '发布版本'
         required: true
         default: 'v1.0'
+      Release_Describe:
+        description: '版本说明'
+        required: true
 
 jobs:
   build:
@@ -47,5 +50,5 @@ jobs:
           tag: ${{ github.event.inputs.Release_Version }}
           overwrite: true
           release_name: "${{ github.event.inputs.Release_Version }}"
-          body: "这是自动打包版本，可能存在不稳定性"
+          body: "${{ github.event.inputs.Release_Describe }}"
      
