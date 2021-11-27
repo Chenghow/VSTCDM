@@ -9,13 +9,14 @@ print("正在执行脚本...\n\n")
 list=[]                                                 #初始化二维列表
 with open("list.txt", "r", encoding="utf-8") as f:      
     for line in f.readlines():                          #依次读取每行  
-        line = line.strip()                             #去掉每行头尾空白  
-        arr=[s for s in line.split()]                   #添加至一维列表
-        list.append(arr.copy())                         #开始组成二维列表
-        if len(arr)/3-len(arr)//3!=0:                   #判断一维列表的合法性
-            arr.clear()
-            print("输入格式错误")
-            break
+        if line.startswith('#') is False:
+            line = line.strip()                             #去掉每行头尾空白  
+            arr=[s for s in line.split()]                   #添加至一维列表
+            list.append(arr.copy())                         #开始组成二维列表
+            if len(arr)/3-len(arr)//3!=0:                   #判断一维列表的合法性
+                arr.clear()
+                print("输入格式错误")
+                break
 #初始化error_list.txt
 newfile=open("error_list.txt", "w+",encoding="utf-8")
 newfile.close()
